@@ -1,0 +1,478 @@
+/* --- Estilos de Reset e Base (Loja de Bolo: Off-White/Creme, Bordô e Rosa) --- */
+
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #444444; /* Cor do texto principal */
+    background-color: #FFF8F3; /* NOVO: Creme/Pêssego Muito Suave */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: #FFF8F3; /* NOVO: Creme/Pêssego Muito Suave */
+    color: #444444;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#root {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* --- Paleta de Destaque (Mantida) --- */
+
+h1 {
+    font-size: 3.8em;
+    line-height: 1.1;
+    color: #B22222; /* Bordô (Cor Principal) */
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 34px;
+    font-weight: 300;
+    color: #B22222; /* Bordô */
+}
+
+h3 {
+    margin: 8px 0;
+    font-size: 22px;
+    color: #8B1A1A; /* Rosa Suave (Destaque Secundário) */
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555555;
+}
+
+/* --- Links (Mantidos) --- */
+
+a {
+    font-weight: 500;
+    color: #B22222; 
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: #8B1A1A; 
+    text-decoration: underline;
+}
+
+/* --- Botões (Geral - Mantidos) --- */
+
+button {
+    border-radius: 20px; 
+    border: 1px solid #FFB6C1; 
+    padding: 0.8em 1.5em;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: inherit;
+    background-color: #FFFFFF; /* Fundo do botão como Branco para contraste no creme */
+    color: #B22222; 
+    cursor: pointer;
+    transition: all 0.25s;
+    margin: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+button:hover {
+    border-color: #B22222;
+    background-color: #FFB6C1; 
+    color: #101010;
+}
+button:focus,
+button:focus-visible {
+    outline: 4px auto #B22222;
+}
+
+/* --- Formulário (Mantido) --- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    background-color: #FFFFFF; /* Fundo Branco (destaca-se do fundo creme) */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(178, 34, 34, 0.1); 
+}
+
+form input, form textarea {
+    margin-bottom: 20px;
+    padding: 14px;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    color: #444444;
+    border-radius: 10px;
+    background-color: #F8F8F8;
+    border: 1px solid #FFB6C1;
+    transition: all 0.3s ease;
+}
+
+form input:hover, form textarea:hover {
+    border: 1px solid #B22222;
+    background-color: #FFF0F5; 
+}
+
+form input:focus, form textarea:focus {
+    outline: none;
+    border: 2px solid #B22222;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 8px rgba(178, 34, 34, 0.5);
+}
+
+form input::placeholder {
+    color: #AAAAAA;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+}
+
+form button[type="submit"] {
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #B22222; 
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(178, 34, 34, 0.4);
+}
+
+form button[type="submit"]:hover {
+    background-color: #8B1A1A;
+    transform: translateY(-2px);
+}
+
+/* --- Lista de Produtos (AJUSTADO) --- */
+
+.produtos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.produto-item {
+    background-color: #F9F4F4; /* NOVO: Cinza/Creme Suave, mais escuro que o fundo do body para contraste */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #8B1A1A; 
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.produto-item:hover {
+    box-shadow: 0 12px 25px #8B1A1A;
+    transform: translateY(-4px);
+}
+
+.produto-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #8B1A1A;
+}
+
+.produto-info {
+    text-align: center;
+    width: 100%;
+}
+
+.edit-button {
+    background-color: #007bff; 
+    color: white;
+    font-weight: 600;
+    border: 1px solid black;
+    padding: 10px 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: rgb(255, 255, 255);
+    border: #101010 1px solid;
+}
+
+/* --- Modal (Mantido) --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #FFFFFF; /* Fundo Branco (destaca-se do fundo creme) */
+    color: #444444;
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(178, 34, 34, 0.5);
+    border: 3px solid #B22222; 
+}
+
+.modal-content form {
+    margin: 0 auto;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    max-width: none;
+}
+
+.modal-content form input, .modal-content form textarea {
+    background-color: #F8F8F8;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.modal-actions button[type="submit"] {
+    background-color: #B22222; 
+    color: white;
+    font-weight: 600;
+}
+.modal-actions button[type="submit"]:hover {
+    background-color: #8B1A1A;
+}
+
+.modal-actions button[type="button"] {
+    background-color: #DCDCDC;
+    color: #444444;
+}
+.modal-actions button[type="button"]:hover {
+    background-color: #CCCCCC;
+}
+
+
+
+.carrinho-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 400px;
+    max-width: 450px;
+    border: 1px solid #FFB6C1; 
+}
+
+.carrinho-item img {
+    border-radius: 10px;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #FFB6C1;
+}
+
+.carrinho-info {
+    flex-grow: 1;
+}
+
+.carrinho-total {
+    max-width: 700px;
+    margin: 30px auto 0;
+    border-top: 2px solid #FFB6C1; 
+    padding-top: 15px;
+}
+
+.carrinho-total h3 {
+    font-size: 24px;
+}
+
+.carrinho-vazio-btn {
+    background-color: #D32F2F; 
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.4);
+}
+
+.carrinho-vazio-btn:hover {
+    background-color: #B71C1C;
+    border-color: white;
+}
+
+/* --- Admin (Mantido) --- */
+
+.admin-container {
+    text-align: left;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.erro {
+    color: #D32F2F; 
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #FFFFFF; /* Fundo Branco (destaca-se do fundo creme) */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #FFB6C1; 
+    color: #444444;
+}
+
+thead th {
+    background-color: #B22222; 
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background-color: #FFF0F5; 
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Estilos para Stripe Elements --- */
+
+.stripe-element {
+    padding: 12px 15px;
+    border: 2px solid #DDD;
+    border-radius: 4px;
+    background-color: white;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.stripe-element:focus {
+    border-color: #FF69B4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.3);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #B22222;
+    font-size: 14px;
+}
+
+.card-details-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.expiry-group,
+.cvc-group {
+    flex: 1;
+}
+
+.checkout-form {
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-form h2 {
+    color: #B22222;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.checkout-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.checkout-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.checkout-form button:hover:not(:disabled) {
+    opacity: 0.9;
+}

@@ -1,69 +1,73 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./adminPage.css";
+import './cssglobal.css'
 
 interface Usuario {
-  id: number;
-  nome: string;
-  email: string;
-  tipo: string; 
+    id: number;
+    nome: string;
+    email: string;
+    tipo: string; 
+    senha: string;
+    idade: number;
 }
 
- function AdminPage() {
-  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
-  const [erro, setErro] = useState<string>("");
+function AdminPage() {
+    const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+    const [erro, setErro] = useState<string>("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-    if (!token) {
-      setErro("Você não tem permissão para acessar esta área.");
-      return;
+        if (!token) {
+            setErro("Você não tem permissão para acessar esta área.");
+            return;
+        }
+
+        axios.get("http://localhost:8000/usuarios", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => setUsuarios(res.data))
+            .catch((err) => {
+                console.error(err);
+                setErro("Acesso negado ou erro ao carregar usuários.");
+            });
+    }, []);
+
+    if (erro) {
+        return <p className="erro">{erro}</p>; {/* CLASSE CSS para mensagens de erro */}
     }
 
-    axios.get("http://localhost:8000/usuarios", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setUsuarios(res.data))
-      .catch((err) => {
-        console.error(err);
-        setErro("Acesso negado ou erro ao carregar usuários.");
-      });
-  }, []);
+    return (
+        <div className="admin-container"> {/* CLASSE CSS para o container principal da página de administração */}
+            <h1> Painel Administrativo de Usuários</h1> {/* Utiliza o H1 estilizado */}
+            <p>Listagem de todos os usuários cadastrados no sistema</p>
 
-  if (erro) {
-    return <p className="erro">{erro}</p>;
-  }
-
-  return (
-    <div className="admin-container">
-      <h1> Painel Administrativo</h1>
-      <p>Listagem de todos os usuários cadastrados no sistema</p>
-
-      {usuarios.length === 0 ? (
-        <p>Nenhum usuário encontrado.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((u) => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.nome}</td>
-                <td>{u.email}</td>
-                <td>{u.tipo}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
-}    export default AdminPage;
+            {usuarios.length === 0 ? (
+                <p>Nenhum usuário encontrado.</p>
+            ) : (
+                <table> {/* A tag <table> será estilizada pelo CSS Global */}
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {usuarios.map((u) => (
+                            <tr key={u.id}> {/* As linhas <tr> e células <td> são estilizadas pelo CSS */}
+                                <td>{u.id}</td>
+                                <td>{u.nome}</td>
+                                <td>{u.idade}</td>
+                                <td>{u.email}</td>
+                                <td>{u.tipo}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
+        </div>
+    );
+} 	export default AdminPage;

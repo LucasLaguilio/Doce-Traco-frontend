@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./filtro-carrinho.css"; 
+import './cssglobal.css'
 
 interface ItemCarrinho {
   id: number;

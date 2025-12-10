@@ -1,5 +1,5 @@
-import './addprodutos.css'
-import './Home.css'
+
+import './cssglobal.css'
 import api from './api/api'
 
 import { useState, useEffect } from 'react'
@@ -179,9 +179,34 @@ function AdicionarProdutos() {
                 
                 {/* O botão de edição só aparece se o usuário está logado */}
                 {isUserLoggedIn && ( 
+                  <>
                     <button onClick={() => handleEditClick(produto)} className="edit-button">
-                        Editar
+                      Editar
                     </button>
+                    <button
+                      onClick={() => {
+                        if (!confirm(`Tem certeza que deseja excluir o produto "${produto.nome}"?`)) return;
+                        api.delete(`/produtos/${produto._id}`)
+                          .then(() => {
+                            setProdutos(prev => prev.filter(p => p._id !== produto._id));
+                            alert('Produto excluído com sucesso.');
+                          })
+                          .catch((error) => {
+                            const msg = error.response?.data?.message || error.response?.data?.error || error.message;
+                            if (error.response?.status === 401 || error.response?.status === 403) {
+                              // O interceptor em api.ts já redireciona em 401, mas mostramos alerta também
+                              alert('Permissão negada para excluir o produto.');
+                            } else {
+                              alert('Erro ao excluir produto: ' + msg);
+                            }
+                          });
+                      }}
+                      className="delete-button"
+                      style={{ marginLeft: 8, backgroundColor: '#e74c3c', color: 'white' }}
+                    >
+                      Excluir
+                    </button>
+                  </>
                 )}
             </div>
           </div>
