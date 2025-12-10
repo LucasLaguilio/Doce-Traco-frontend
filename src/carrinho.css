@@ -1,0 +1,358 @@
+/*
+* ======================================
+* Variáveis e Estilos Globais (DARK MODE)
+* ======================================
+*/
+
+:root {
+    --cor-principal: #ff6f91; /* Rosa Vibrante para destaque */
+    --cor-secundaria: #ff9d80; /* Salmão/Pêssego Suave para elementos de suporte */
+    --cor-fundo-principal: #1a1a1a; /* Fundo mais escuro */
+    --cor-fundo-secao: #282828; /* Fundo de cards/seções, ligeiramente elevado */
+    --cor-texto-claro: #e0e0e0; /* Texto principal claro */
+    --cor-texto-suave: #9e9e9e; /* Texto secundário, descrições */
+    --cor-alerta: #e57373; /* Vermelho suave para ações de remoção */
+    --sombra-card: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra mais visível no escuro */
+    --borda-raio: 12px; /* Raio padrão para bordas */
+    --padding-conteudo-desktop: 40px 80px; /* Padding generoso para desktop */
+    --padding-conteudo-mobile: 20px 25px; /* Padding para mobile */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    margin: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Melhor renderização de fonte */
+    -moz-osx-font-smoothing: grayscale; /* Melhor renderização de fonte */
+}
+
+/* Container principal da página do carrinho */
+.Carrinho-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--padding-conteudo-desktop);
+}
+
+/*
+* ======================================
+* Cabeçalho da Página do Carrinho
+* ======================================
+*/
+
+.carrinho-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #3a3a3a; /* Linha divisória sutil */
+    padding-bottom: 20px;
+}
+
+.carrinho-header-titulo {
+    font-size: 2.8em; /* Título maior */
+    font-weight: 700;
+    color: var(--cor-principal);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre ícone e texto */
+}
+
+.carrinho-header-titulo .icone-carrinho {
+    font-size: 1.2em; /* Tamanho do ícone */
+}
+
+.carrinho-header-link-voltar {
+    text-decoration: none;
+    color: var(--cor-texto-suave);
+    padding: 10px 18px;
+    border-radius: 50px; /* Botão pílula */
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border: 1px solid #4a4a4a; /* Borda suave */
+}
+
+.carrinho-header-link-voltar:hover {
+    color: var(--cor-principal);
+    background-color: rgba(255, 111, 145, 0.1);
+    border-color: var(--cor-principal);
+}
+
+/*
+* ======================================
+* Título dos Itens e Botão Esvaziar
+* ======================================
+*/
+
+.carrinho-secao-titulo {
+    font-size: 2em; /* Título da seção */
+    font-weight: 600;
+    color: var(--cor-texto-claro);
+    margin-top: 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3a3a3a;
+    padding-bottom: 10px;
+}
+
+.esvaziar-carrinho-btn {
+    background-color: var(--cor-alerta);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(229, 115, 115, 0.3);
+}
+
+.esvaziar-carrinho-btn:hover {
+    background-color: #c4291f;
+    transform: translateY(-2px);
+}
+
+/* Mensagem de carrinho vazio */
+.carrinho-vazio-mensagem {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.3em;
+    color: var(--cor-texto-suave);
+    background-color: var(--cor-fundo-secao);
+    border-radius: var(--borda-raio);
+    margin-top: 30px;
+    box-shadow: var(--sombra-card);
+}
+
+/*
+* ======================================
+* Card de Item no Carrinho (Grid para Desktop)
+* ======================================
+*/
+
+.item-carrinho-card {
+    display: grid;
+    /* Grid para desktop: Imagem | Detalhes do Produto | Preço/Quantidade/Subtotal | Ações */
+    grid-template-columns: 100px 3fr 1.5fr 1fr; 
+    gap: 30px;
+    background-color: var(--cor-fundo-secao);
+    margin-bottom: 18px;
+    padding: 20px 25px;
+    border-radius: var(--borda-raio);
+    box-shadow: var(--sombra-card);
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.item-carrinho-card:hover {
+    transform: translateY(-3px); /* Leve elevação ao passar o mouse */
+}
+
+.item-carrinho-card-imagem {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #4a4a4a;
+}
+
+.item-detalhes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-detalhes h3 {
+    margin: 0 0 5px;
+    font-size: 1.3em;
+    color: var(--cor-principal);
+    line-height: 1.3;
+}
+
+.item-detalhes .descricao-produto {
+    font-size: 0.9em;
+    color: var(--cor-texto-suave);
+    max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Impede quebra de linha */
+    margin-top: 5px;
+}
+
+.item-preco-quantidade-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.item-preco-unitario, .item-quantidade {
+    font-size: 1em;
+    color: var(--cor-texto-claro);
+}
+
+.item-subtotal {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--cor-principal);
+    margin-top: 10px;
+}
+
+.item-acoes {
+    text-align: right;
+}
+
+.remover-unidade-btn {
+    background-color: #4a4a4a; /* Botão mais neutro */
+    color: var(--cor-texto-claro);
+    border: 1px solid #666;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.remover-unidade-btn:hover {
+    background-color: var(--cor-alerta);
+    border-color: var(--cor-alerta);
+    transform: translateY(-1px);
+}
+
+/*
+* ======================================
+* Resumo do Total da Compra
+* ======================================
+*/
+
+.carrinho-resumo-total {
+    background-color: var(--cor-fundo-secao);
+    padding: 30px;
+    margin-top: 40px;
+    border-radius: var(--borda-raio);
+    box-shadow: var(--sombra-card);
+    text-align: right;
+    border-top: 3px solid var(--cor-principal); /* Linha de destaque */
+}
+
+.carrinho-resumo-total h3 {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: var(--cor-principal);
+    margin: 0;
+}
+
+/*
+* ======================================
+* Responsividade (Mobile e Tablet)
+* ======================================
+*/
+
+@media (max-width: 992px) {
+    .Carrinho-container {
+        padding: var(--padding-conteudo-mobile);
+    }
+
+    .carrinho-header-titulo {
+        font-size: 2em;
+        gap: 10px;
+    }
+
+    .carrinho-header-link-voltar {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .carrinho-secao-titulo {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .esvaziar-carrinho-btn {
+        padding: 8px 18px;
+        font-size: 0.9em;
+    }
+
+    .item-carrinho-card {
+        grid-template-columns: 100px 2fr 1.5fr; /* Reduz para 3 colunas */
+        grid-template-areas: 
+            "imagem detalhes preco-info"
+            "imagem detalhes acoes"; /* Ajuste para colocar ações abaixo do preço */
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .item-carrinho-card-imagem { grid-area: imagem; }
+    .item-detalhes { grid-area: detalhes; }
+    .item-preco-quantidade-info { grid-area: preco-info; }
+    .item-acoes { 
+        grid-area: acoes; 
+        text-align: left; /* Alinha o botão de remoção à esquerda no tablet */
+    }
+
+    .item-detalhes .descricao-produto {
+        max-width: none; /* Permite que a descrição ocupe todo o espaço */
+        white-space: normal; /* Permite quebra de linha */
+    }
+
+    .item-preco-quantidade-info {
+        text-align: left; /* Alinha infos de preço à esquerda */
+    }
+
+    .carrinho-resumo-total h3 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 600px) {
+    .Carrinho-container {
+        padding: 15px;
+    }
+
+    .carrinho-header {
+        flex-direction: column;
+        align-items: flex-start; /* Alinha à esquerda */
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .carrinho-header-titulo {
+        font-size: 2em;
+    }
+    .carrinho-header-link-voltar {
+        align-self: flex-end; /* Coloca o botão de voltar à direita */
+    }
+
+    .carrinho-secao-titulo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 1.4em;
+    }
+    .esvaziar-carrinho-btn {
+        align-self: flex-end; /* Coloca o botão de esvaziar à direita */
+    }
+
+    .item-carrinho-card {
+        grid-template-columns: 1fr; /* Uma única coluna */
+        grid-template-areas: 
+            "imagem"
+            "detalhes"
+            "preco-info"
+            "acoes";
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .item-preco-quantidade-info, .item-acoes {
+        text-align: left; /* Garante alinhamento à esquerda no mobile */
+    }
+
+    .carrinho-resumo-total h3 {
+        font-size: 1.6em;
+    }
+}

@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from 'react'
 import axios from 'axios' 
 
+// TIPAGENS
 type ItemCarrinho = {
     _id?: string,
     produtoId: string,
@@ -26,6 +27,13 @@ type ProdutoType = {
     preco: number,
     urlfoto: string,
     descricao: string
+}
+
+//  NOVO: Tipos dos filtros
+type Filtros = {
+  nome: string;
+  precoMin: string;
+  precoMax: string;
 }
 
 function Carrinho() {

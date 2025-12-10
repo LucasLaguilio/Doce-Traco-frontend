@@ -13,9 +13,6 @@ type ProdutoType = {
   descricao: string
 }
 
-// ... (Manter o componente EditarProdutoForm como estava) ...
-// (É exatamente o mesmo da resposta anterior)
-
 interface EditarProdutoProps {
     produto: ProdutoType;
     onClose: () => void;
@@ -23,7 +20,11 @@ interface EditarProdutoProps {
 }
 
 const EditarProdutoForm: React.FC<EditarProdutoProps> = ({ produto, onClose, onSave }) => {
-    const [dadosForm, setDadosForm] = useState(produto);
+    const [dadosForm, setDadosForm] = useState<ProdutoType>(produto);
+
+    useEffect(() => {
+      setDadosForm(produto);
+    }, [produto]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -33,22 +34,29 @@ const EditarProdutoForm: React.FC<EditarProdutoProps> = ({ produto, onClose, onS
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        // Chamada PUT/PATCH protegida pelo Token JWT
-        api.put(`/produtos/${dadosForm._id}`, dadosForm)
-            .then(response => {
-                onSave(response.data);
-                onClose();
-            })
-            // O interceptor do axios em api.ts já tratará o erro 401/403 (redirecionando para /login)
-            .catch(error => {
-                // Se o erro não for 401/403, exibe uma mensagem genérica de erro (ex: 500)
-                if (error.response?.status !== 401 && error.response?.status !== 403) {
-                     alert('Erro ao atualizar produto: ' + (error.response?.data?.message || 'Tente novamente.'));
-                }
-            });
+        try {
+            const response = await api.put(`/produtos/${dadosForm._id}`, dadosForm);
+            onSave(response.data);
+            onClose();
+        } catch (error: any) {
+            if (error.response?.status !== 401 && error.response?.status !== 403) {
+                alert('Erro ao atualizar produto: ' + (error.response?.data?.message || 'Tente novamente.'));
+            }
+        }
+    };
+
+    const excluirProduto = async (id: string) => {
+        try {
+            await api.delete(`/produtos/excluir/${id}`);
+            alert('Produto excluído com sucesso!');
+            onClose();
+        } catch (error) {
+            console.error('Erro ao excluir produto:', error);
+            alert('Erro ao excluir produto. Tente novamente.');
+        }
+        window.location.reload();''
     };
 
     return (
@@ -88,6 +96,17 @@ const EditarProdutoForm: React.FC<EditarProdutoProps> = ({ produto, onClose, onS
                     <div className="modal-actions">
                         <button type="submit">Salvar Edição</button>
                         <button type="button" onClick={onClose}>Cancelar</button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (confirm('Deseja realmente excluir este produto?')) {
+                              excluirProduto(dadosForm._id);
+                            }
+                          }}
+                          className="delete-button"
+                        >
+                          Excluir Produto
+                        </button>
                     </div>
                 </form>
             </div>
@@ -95,26 +114,20 @@ const EditarProdutoForm: React.FC<EditarProdutoProps> = ({ produto, onClose, onS
     );
 };
 
-
-// -----------------------------------------------------------
-// Componente Principal Refatorado
-// -----------------------------------------------------------
-
 function AdicionarProdutos() {
   const [produtos, setProdutos] = useState<ProdutoType[]>([])
   const [produtoEmEdicao, setProdutoEmEdicao] = useState<ProdutoType | null>(null);
 
-  // Verifica se há um token, para mostrar o botão 'Editar' apenas para usuários logados.
   const [isUserLoggedIn] = useState(!!localStorage.getItem('token')); 
  
-  // Carregar produtos
+
   useEffect(() => {
     api.get("/produtos")
       .then((response) => setProdutos(response.data))
       .catch((error) => console.error('Erro ao buscar produtos:', error))
   }, [])
   
-  // Função de Cadastro (POST)
+
   function handleForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
@@ -128,7 +141,7 @@ function AdicionarProdutos() {
 
     api.post<ProdutoType>("/produtos", data)
     .then((response) => setProdutos([...produtos, response.data]))
-    // O interceptor lida com o 401/403. Apenas exibe outros erros.
+
     .catch((error) => {
         if (error.response?.status !== 401 && error.response?.status !== 403) {
              alert('Erro ao adicionar produto: ' + (error.response?.data?.message || 'Tente novamente.'));
@@ -137,12 +150,11 @@ function AdicionarProdutos() {
     form.reset()
   }
 
-  // Função chamada pelo botão "Editar"
+
   const handleEditClick = (produto: ProdutoType) => {
     setProdutoEmEdicao(produto);
   };
 
-  // Função chamada pelo formulário de edição após salvar
   const handleSaveEdit = (produtoAtualizado: ProdutoType) => {
     setProdutos(produtos.map(p => 
       p._id === produtoAtualizado._id ? produtoAtualizado : p
@@ -152,7 +164,7 @@ function AdicionarProdutos() {
 
   return (
     <>
-      {/* O formulário de cadastro também deve ser visível apenas para usuários que podem postar (Admin) */}
+      {}
       {isUserLoggedIn && (
         <>
             <h2>Cadastro de Produtos</h2>
@@ -177,7 +189,7 @@ function AdicionarProdutos() {
                 <p>Preço: R$ {produto.preco.toFixed(2)}</p>
                 <p>{produto.descricao}</p>
                 
-                {/* O botão de edição só aparece se o usuário está logado */}
+                {}
                 {isUserLoggedIn && ( 
                   <>
                     <button onClick={() => handleEditClick(produto)} className="edit-button">
@@ -213,7 +225,7 @@ function AdicionarProdutos() {
         ))}
       </div>
 
-      {/* Renderiza o formulário de edição (Modal) */}
+      {}
       {produtoEmEdicao && (
           <EditarProdutoForm 
               produto={produtoEmEdicao}

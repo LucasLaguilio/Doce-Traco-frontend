@@ -3,12 +3,10 @@ import axios from "axios";
 import './cssglobal.css'
 
 interface Usuario {
-    id: number;
-    nome: string;
-    email: string;
-    tipo: string; 
-    senha: string;
-    idade: number;
+  id: number;
+  nome: string;
+  email: string;
+  tipo: string; 
 }
 
 function AdminPage() {
