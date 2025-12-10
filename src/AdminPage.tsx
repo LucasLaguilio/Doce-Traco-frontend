@@ -7,6 +7,7 @@ interface Usuario {
   nome: string;
   email: string;
   tipo: string; 
+    idade?: number;
 }
 
 function AdminPage() {
@@ -32,7 +33,7 @@ function AdminPage() {
     }, []);
 
     if (erro) {
-        return <p className="erro">{erro}</p>; {/* CLASSE CSS para mensagens de erro */}
+        return <p className="erro">{erro}</p>;
     }
 
     return (

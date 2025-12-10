@@ -44,7 +44,7 @@ function Carrinho() {
     const [itens, setItens] = useState<ItemCarrinho[]>([])
     const [itensOriginais, setItensOriginais] = useState<ItemCarrinho[]>([])
     const [produtos, setProdutos] = useState<ProdutoType[]>([])
-    const [filtros, setFiltros] = useState({ nome: '', precoMin: '', precoMax: '' })
+    const [filtros, setFiltros] = useState<Filtros>({ nome: '', precoMin: '', precoMax: '' })
 
     const totalCarrinho = itens.reduce((acc, item) => 
         acc + (item.precoUnitario * item.quantidade), 0
