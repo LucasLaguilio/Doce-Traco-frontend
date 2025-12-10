@@ -63,7 +63,7 @@ function AdminPage() {
                     </thead>
                     <tbody>
                                 {usuarios.map((u) => {
-                                    const uid = typeof u._id === 'string' ? u._id : (u._id?._bsontype ? u._id.toString() : String(u._id));
+                                    const uid = String((u as any)._id);
                                     const numItens = u.carrinho?.itens?.reduce((acc, it) => acc + (it.quantidade || 0), 0) ?? 0;
                                     const total = u.carrinho?.total ?? 0;
                                     return (
