@@ -3,11 +3,17 @@ import axios from "axios";
 import './cssglobal.css'
 
 interface Usuario {
-  id: number;
-  nome: string;
-  email: string;
-  tipo: string; 
+    _id: string | { toString: () => string };
+    id?: number;
+    nome: string;
+    email: string;
+    tipo: string;
     idade?: number;
+    carrinho?: {
+        usuarioId: string;
+        itens: Array<{ produtoId?: string; nome?: string; quantidade?: number; precoUnitario?: number }>;
+        total?: number;
+    };
 }
 
 function AdminPage() {
@@ -22,7 +28,7 @@ function AdminPage() {
             return;
         }
 
-        axios.get("http://localhost:8000/usuarios", {
+        axios.get("http://localhost:8000/usuarios?includeCarts=true", {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => setUsuarios(res.data))
@@ -47,23 +53,30 @@ function AdminPage() {
                 <table> {/* A tag <table> será estilizada pelo CSS Global */}
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Idade</th>
-                            <th>Email</th>
-                            <th>Tipo</th>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Idade</th>
+                                    <th>Email</th>
+                                    <th>Tipo</th>
+                                    <th>Carrinho</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios.map((u) => (
-                            <tr key={u.id}> {/* As linhas <tr> e células <td> são estilizadas pelo CSS */}
-                                <td>{u.id}</td>
-                                <td>{u.nome}</td>
-                                <td>{u.idade}</td>
-                                <td>{u.email}</td>
-                                <td>{u.tipo}</td>
-                            </tr>
-                        ))}
+                                {usuarios.map((u) => {
+                                    const uid = typeof u._id === 'string' ? u._id : (u._id?._bsontype ? u._id.toString() : String(u._id));
+                                    const numItens = u.carrinho?.itens?.reduce((acc, it) => acc + (it.quantidade || 0), 0) ?? 0;
+                                    const total = u.carrinho?.total ?? 0;
+                                    return (
+                                        <tr key={uid}> {/* As linhas <tr> e células <td> são estilizadas pelo CSS */}
+                                            <td>{uid}</td>
+                                            <td>{u.nome}</td>
+                                            <td>{u.idade}</td>
+                                            <td>{u.email}</td>
+                                            <td>{u.tipo}</td>
+                                            <td>{numItens} itens — R$ {Number(total).toFixed(2)}</td>
+                                        </tr>
+                                    )
+                                })}
                     </tbody>
                 </table>
             )}
